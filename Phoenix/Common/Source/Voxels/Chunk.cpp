@@ -64,15 +64,22 @@ std::string Chunk::save()
 
 void Chunk::autoTestFill()
 {
-	BlockType* block = BlockRegistry::get()->getFromID("core.air");
-	if (m_pos.y < 16 && m_pos.y >= 0.f)
+	BlockType* air = BlockRegistry::get()->getFromID("core.air");
+	BlockType* grass = BlockRegistry::get()->getFromID("core.grass");
+	BlockType* dirt = BlockRegistry::get()->getFromID("core.dirt");
+	if (m_pos.y >= 16)
 	{
-		block = BlockRegistry::get()->getFromID("core.grass");
+		m_blocks.push_back (air);
 	}
-
-	for (std::size_t i = 0; i < CHUNK_WIDTH * CHUNK_HEIGHT * CHUNK_DEPTH; ++i)
+	else if(m_pos.y < 16 && m_pos.y >= 0.f)
 	{
-		m_blocks.push_back(block);
+		for (std::size_t i = 0; i < CHUNK_WIDTH * CHUNK_HEIGHT * CHUNK_DEPTH; ++i)
+		{
+			if	(i% CHUNK_WIDTH == 0)
+			{m_blocks.push_back(grass);}
+			else
+			{m_blocks.push_back(dirt);}
+		}
 	}
 }
 
