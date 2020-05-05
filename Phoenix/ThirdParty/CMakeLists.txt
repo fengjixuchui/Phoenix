@@ -70,16 +70,3 @@ set(PHX_THIRD_PARTY_LIBRARIES
 
 	PARENT_SCOPE
 )
-
-if(UNIX)
-	find_package(Threads REQUIRED)
-	set(PHX_THIRD_PARTY_LIBRARIES 
-		${PHX_THIRD_PARTY_LIBRARIES} 
-		Threads::Threads		
-		PARENT_SCOPE)
-endif()
-
-target_compile_options(sol2 INTERFACE
-  $<$<CXX_COMPILER_ID:MSVC>:/wd4996>
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-W>
-)
